@@ -1,5 +1,6 @@
-package com.screenshort;
+package com.burphelper.screenshort;
 
+import com.burphelper.screenshort.ImageSelection;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics2D;

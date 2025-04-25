@@ -1,4 +1,4 @@
-package com.screenshort;
+package com.burphelper;
 
 import java.awt.*;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.screenshort;
+package com.burphelper.screenshort;
 
 import java.awt.Image;
 import java.awt.datatransfer.Transferable;

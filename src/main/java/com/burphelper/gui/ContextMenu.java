@@ -25,6 +25,7 @@ import burp.api.montoya.ui.hotkey.HotKeyEvent;
 import com.burphelper.pcopy.PCopyMenuActionHandler;
 import com.burphelper.screenshort.ScreenShortMenuActionHandler;
 import com.burphelper.intergrate.IntergrateMenuActionHandler;
+import com.burphelper.req_utilities.ApplyCookieChangeActionMenuHandler;
 import com.burphelper.req_utilities.AuthenticationCopyPasteActionMenuHandler;
 
 public class ContextMenu implements ContextMenuItemsProvider {
@@ -34,6 +35,7 @@ public class ContextMenu implements ContextMenuItemsProvider {
     private final ScreenShortMenuActionHandler screenShortMenuActionHandler;
     private final IntergrateMenuActionHandler intergrateMenuActionHandler;
     private final AuthenticationCopyPasteActionMenuHandler authenticationCopyActionMenuHandler;
+    private final ApplyCookieChangeActionMenuHandler applyCookieChangeActionMenuHandler;
 
     public ContextMenu(MontoyaApi api) {
         this.api = api;
@@ -41,6 +43,7 @@ public class ContextMenu implements ContextMenuItemsProvider {
         this.screenShortMenuActionHandler = new ScreenShortMenuActionHandler(api);
         this.intergrateMenuActionHandler = new IntergrateMenuActionHandler(api);
         this.authenticationCopyActionMenuHandler = new AuthenticationCopyPasteActionMenuHandler(api);
+        this.applyCookieChangeActionMenuHandler = new ApplyCookieChangeActionMenuHandler(api);
     }
 
     @Override
@@ -104,22 +107,17 @@ public class ContextMenu implements ContextMenuItemsProvider {
         copyAuthen.addActionListener(e -> authenticationCopyActionMenuHandler.handleCopyAuthentication(requestResponse));
         KeyStroke copyAuthenKey = KeyStroke.getKeyStroke(KeyEvent.VK_C, KeyEvent.CTRL_DOWN_MASK | KeyEvent.SHIFT_DOWN_MASK);
         copyAuthen.setAccelerator(copyAuthenKey);
-
-//        Action copy = new AbstractAction(key){
-//            @Override
-//            public void actionPerformed(ActionEvent evt) {
-//                authenticationCopyActionMenuHandler.handleCopyAuthentication(requestResponse);
-//            }
-//        };
-//        copyAuthen.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(copyAuthenKey, key); // TODO: NOT WOTK
-//        copyAuthen.getActionMap().put(key, copy); // TODO: NOT WOTK
         menuItems.add(copyAuthen);
 
         JMenuItem pasteAuthen = new JMenuItem("Paste Authentication");
         pasteAuthen.addActionListener(e -> authenticationCopyActionMenuHandler.handlePasteAuthentication(event));
         pasteAuthen.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_V, KeyEvent.CTRL_DOWN_MASK | KeyEvent.SHIFT_DOWN_MASK));
-
         menuItems.add(pasteAuthen);
+        
+        JMenuItem applyCookieChange = new JMenuItem("Apply Cookie Change");
+        applyCookieChange.addActionListener(e -> applyCookieChangeActionMenuHandler.applyCookieChange(event));
+        applyCookieChange.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, KeyEvent.CTRL_DOWN_MASK | KeyEvent.SHIFT_DOWN_MASK));
+        menuItems.add(applyCookieChange);
 
         return menuItems;
     }
@@ -143,6 +141,13 @@ public class ContextMenu implements ContextMenuItemsProvider {
             @Override
             public void handle(HotKeyEvent evt) {
                 authenticationCopyActionMenuHandler.handleGlobalPasteAuthentication(evt);
+            }
+        });
+        
+        api.userInterface().registerHotKeyHandler(HotKeyContext.HTTP_MESSAGE_EDITOR, "Ctrl+Shift+X", new HotKeyHandler() {
+            @Override
+            public void handle(HotKeyEvent evt) {
+                applyCookieChangeActionMenuHandler.applyCookieChangeGlobal(evt);
             }
         });
     }

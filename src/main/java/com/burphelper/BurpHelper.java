@@ -3,6 +3,7 @@ package com.burphelper;
 import com.burphelper.gui.ContextMenu;
 import burp.api.montoya.BurpExtension;
 import burp.api.montoya.MontoyaApi;
+import com.burphelper.gui.UserInterface;
 
 public class BurpHelper implements BurpExtension {
 
@@ -17,6 +18,9 @@ public class BurpHelper implements BurpExtension {
         contextMenu.registerHotkey();
 
         api.userInterface().registerContextMenuItemsProvider(contextMenu);
+
+        UserInterface ui = new UserInterface(api);
+        api.userInterface().registerSuiteTab("BurpHelper", ui.getUI());
 
     }
 }

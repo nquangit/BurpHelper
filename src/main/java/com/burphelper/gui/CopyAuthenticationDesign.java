@@ -8,12 +8,12 @@ package com.burphelper.gui;
  *
  * @author ASUS
  */
-public class NewJPanel extends javax.swing.JPanel {
+public class CopyAuthenticationDesign extends javax.swing.JPanel {
 
     /**
      * Creates new form NewJPanel
      */
-    public NewJPanel() {
+    public CopyAuthenticationDesign() {
         initComponents();
     }
 

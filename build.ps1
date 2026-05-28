@@ -1,0 +1,1 @@
+cd "D:\Me\PEN\Web\BurpsuiteHelp\Extensions\dev\BurpHelper"; $env:JAVA_HOME="C:\Program Files\Java\jdk-21"; & "D:\Downloads\Program\netbeans\java\maven\bin\mvn.cmd" "-Dmaven.ext.class.path=D:\Downloads\Program\netbeans\java\maven-nblib\netbeans-eventspy.jar" --no-transfer-progress clean install
